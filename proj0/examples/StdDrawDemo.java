@@ -16,15 +16,13 @@ public class StdDrawDemo {
 	public static void drawThree() {
 		/** Sets up the universe so it goes from 
 		  * -100, -100 up to 100, 100 */
-		StdDraw.setScale(-100, 100);
+		StdDraw.setScale(-1000, 1000);
 
 		/* Clears the drawing window. */
 		StdDraw.clear();
 
 		/* Stamps three copies of advice.png in a triangular pattern. */
-		StdDraw.picture(0, 75, imageToDraw);
-		StdDraw.picture(-75, -75, imageToDraw);
-		StdDraw.picture(75, -75, imageToDraw);
+		StdDraw.picture(0, 0, imageToDraw);
 
 		/* Shows the drawing to the screen, and waits 2000 milliseconds. */
 		StdDraw.show();
@@ -95,7 +93,6 @@ public class StdDrawDemo {
 	}
 
 	public static void main(String[] args) {
-		
 		drawThree();
 		drawRandom();
 		drawZoom();
