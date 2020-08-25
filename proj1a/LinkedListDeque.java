@@ -1,5 +1,5 @@
 public class LinkedListDeque <T>{
-    public class IniNode {
+    private class IniNode {
         public IniNode prev;
         public T item;
         public IniNode next;
@@ -36,8 +36,7 @@ public class LinkedListDeque <T>{
     public boolean isEmpty() {
         if (sentinel.next.item == null) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -84,28 +83,15 @@ public class LinkedListDeque <T>{
         return p.item;
     }
 
-    public LinkedListDeque(LinkedListDeque other) {
-        while (! (other.isEmpty())){
-            T current = (T) other.get(0);
-            sentinel.next = new IniNode(sentinel, current ,sentinel.next);
-            sentinel.next.next.prev = sentinel.next;
-            size += 1;
-            other.removeFirst();
+    private T get_helper(IniNode a, int index) {
+        if (index == 0) {
+            return a.next.item;
+        } else{
+            index += -1;
+            return get_helper(a.next,index);
         }
     }
-
-    private T helper(LinkedListDeque other, int index) {
-        if(index == 0) {
-            return (T) other.sentinel.next.item;
-        }
-        else{
-            other.sentinel.next = other.sentinel.next.next;
-            return helper(other, index - 1);
-        }
-    }
-
     public T getRecursive(int index) {
-        LinkedListDeque copy = new LinkedListDeque(this);
-        return helper(copy, index);
+        return get_helper(sentinel, index);
     }
 }
