@@ -1,35 +1,52 @@
 public class ArrayDeque <T>{
     public T[] first;
-    private int size;
+    public int size;
+    public int nextFirst;
+    public int nextLast;
 
     public ArrayDeque() {
         size = 0;
-        first = (T[]) new Object[8];;
+        first = (T[]) new Object[8];
+        nextFirst = 4;
+        nextLast = 5;
     }
 
     public void addFirst(T item) {
-        T[] a = (T[]) new Object[size + 1];
-        System.arraycopy(a,1,first,1,size);
-        first = a;
-        first[0] = item;
+        first[nextFirst] = item;
+        nextFirst += -1;
         size += 1;
+        if (nextFirst == -1) {
+              nextFirst = first.length - 1;
+          }
+        resize();
     }
 
     public void addLast(T item) {
-        if (size == first.length) {
-            T[] a = (T[]) new Object[size + 1];
-            System.arraycopy(a,0,first,0,size);
-            first = a;
-        }
-        first[size] = item;
+        first[nextLast] = item;
+        nextLast += 1;
         size += 1;
+        if (nextLast == first.length) {
+                nextLast = 0;
+            }
+        resize();
+    }
+
+    public void resize() {
+        if (nextLast == nextFirst) {
+            T[] after = (T[]) new Object[first.length * 2];
+            nextFirst = first.length - 1;
+            nextLast = nextFirst + size + 1;
+            System.arraycopy(after,first.length,first,nextFirst + 1,first.length - nextFirst - 1);
+            System.arraycopy(after,first.length - nextFirst - 1,first,0, nextLast - 1);
+            first = after;
+        }
+
     }
 
     public boolean isEmpty() {
-        if (first[0] == null) {
+        if (first[nextFirst + 1] == null) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -46,33 +63,42 @@ public class ArrayDeque <T>{
     }
 
     public T removeFirst() {
-        T outcome = first[0];
-        if (outcome != null) {
-            T[] a = (T[]) new Object[size - 1];
-            System.arraycopy(a,1,first,1,size - 1);
-            first = a;
-            size += -1;
+        T result;
+        if(nextFirst == first.length - 1) {
+            result = first[0];
+            first[0] = null;
+        } else{
+            result = first[nextFirst + 1];
+            first[nextFirst + 1] = null;
         }
-        return outcome;
+        size += -1;
+        return result;
     }
 
     public T removeLast() {
-        T outcome = first[size];
-        if (outcome != null) {
-            T[] a = (T[]) new Object[size - 1];
-            System.arraycopy(a,0,first,0,size - 1);
-            first = a;
-            size += -1;
+        T result;
+        if(nextLast == 0) {
+            result = first[first.length - 1];
+            first[first.length - 1] = null;
+        } else{
+            result = first[nextLast - 1];
+            first[nextLast - 1] = null;
         }
-        return outcome;
+        size += -1;
+        return result;
     }
 
     public T get(int index) {
-        return first[index];
+        if ( nextFirst + index < first.length) {
+            return first[nextFirst + index];
+        } else{
+            return first[nextFirst + index - first.length];
+        }
+
     }
 
     public ArrayDeque(ArrayDeque other) {
-        first = (T[]) new Object[other.first.length];;
+        first = (T[]) new Object[other.first.length];
         System.arraycopy(first,0,other,0,other.size);
     }
 }
