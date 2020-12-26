@@ -99,7 +99,6 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         }
     }
 
-
     /**
      * Bubbles up the node currently at the given index.
      */
@@ -108,10 +107,11 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         /** TODO: Your code here. */
-        if (min(parentIndex(index), index) == index && index != 1) {
+        while (index > 1&& min(parentIndex(index), index) == index) {
             swap(parentIndex(index), index);
-            swim(parentIndex(index));
+            index = index / 2;
         }
+
     }
 
     /**
@@ -122,10 +122,10 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         /** TODO: Your code here. */
-        if (inBounds(leftIndex(index)) || inBounds(rightIndex(index))){
+        while (inBounds(leftIndex(index)) || inBounds(rightIndex(index))){
             int smaller = min(leftIndex(index),rightIndex(index));
             swap(smaller, index);
-            sink(smaller);
+            index = smaller;
         }
     }
 
