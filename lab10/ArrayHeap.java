@@ -121,9 +121,14 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
 
-        /** TODO: Your code here. */
-        while (inBounds(leftIndex(index)) || inBounds(rightIndex(index))){
+        /** TODO: Your code here. Bubble down the new root until it is smaller than both its children.
+         * If you reach a point where you can either bubble down through the left or right child, you
+         * must choose the smaller of the two. This process is also called sinking.*/
+        while (inBounds(leftIndex(index))){
             int smaller = min(leftIndex(index),rightIndex(index));
+            if (min(smaller, index) == index){
+                break;
+            }
             swap(smaller, index);
             index = smaller;
         }
@@ -141,9 +146,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         }
 
         /* TODO: Your code here! */
-        Node last = new Node(item,priority);
-        contents[size + 1] = last;
         size += 1;
+        contents[size] = new Node(item,priority);
         swim(size);
 
     }
@@ -170,12 +174,14 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     @Override
     public T removeMin() {
         /* TODO: Your code here! */
+        T result = peek();
         swap(1,size);
-        Node result = contents[size];
         contents[size] = null;
-        sink(1);
         size += -1;
-        return result.item();
+        if (size > 0){
+            sink(1);
+        }
+        return result;
     }
 
     /**
