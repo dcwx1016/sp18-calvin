@@ -29,6 +29,7 @@ public class Percolation {
         // open the site (row, col) if it is not open already
         if (num == 1) {
             sites[0] = 1;
+            size += 1;
         }
         if (row >= 0 && col >= 0 && row < num && col < num) {
             if (!isOpen(row, col)) {
