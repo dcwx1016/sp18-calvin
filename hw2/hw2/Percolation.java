@@ -27,6 +27,9 @@ public class Percolation {
     }
     public void open(int row, int col) {
         // open the site (row, col) if it is not open already
+        if (num == 1) {
+            sites[0] = 1;
+        }
         if (row >= 0 && col >= 0 && row < num && col < num) {
             if (!isOpen(row, col)) {
                 int middle = row * num + col;
@@ -67,11 +70,7 @@ public class Percolation {
     public boolean isOpen(int row, int col) {
         // is the site (row, col) open?
         if (row >= 0 && col >= 0 && row < num && col < num) {
-            if (sites[row * num + col] == 1) {
-                return true;
-            } else {
-                return false;
-            }
+            return sites[row * num + col] == 1;
         } else {
             throw new java.lang.IndexOutOfBoundsException("Please input valid row or/and col.");
         }
@@ -102,9 +101,13 @@ public class Percolation {
 
     public boolean percolates() {
         // does the system percolate?
+        if (num == 1 && isOpen(0, 0)) {
+            return true;
+        }
+
         for (int i = 0; i < num; i++) {
             for (int j = 0; j < num; j++) {
-                if (groups.connected(num * (num - 1) + i, j)) {
+                if (groups.connected(num * (num - 1) + i, j) && num != 1) {
                     return true;
                 }
             }
@@ -114,18 +117,35 @@ public class Percolation {
 
     public static void main(String[] args) {
         // use for unit testing (not required)
-        Percolation a = new Percolation(5);
-        a.open(1, 1);
-        a.open(1, 0);
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                System.out.println(a.sites[i * a.num + j]);
-            }
-        }
-        System.out.println(a.groups.connected(2, 3));
-        System.out.println(a.groups.connected(0, 2));
-        System.out.println(a.percolates());
+
+        //test1
+//        Percolation a = new Percolation(5);
+//        a.open(1, 1);
+//        a.open(1, 0);
+//        for (int i = 0; i < 5; i++) {
+//            for (int j = 0; j < 5; j++) {
+//                System.out.println(a.sites[i * a.num + j]);
+//            }
+//        }
+//        System.out.println(a.groups.connected(2, 3));
+//        System.out.println(a.groups.connected(0, 2));
+//        System.out.println(a.percolates());
+//        a.open(0, 0);
+//        System.out.println(a.percolates());
+
+        //test2
+//        Percolation a = new Percolation(1);
+//        System.out.println(a.percolates());
+//        a.open(0, 0);
+//        System.out.println(a.percolates());
+
+        //test3
+        Percolation a = new Percolation(2);
         a.open(0, 0);
+        a.open(0, 1);
         System.out.println(a.percolates());
+        a.open(1, 1);
+        System.out.println(a.percolates());
+
     }
 }
