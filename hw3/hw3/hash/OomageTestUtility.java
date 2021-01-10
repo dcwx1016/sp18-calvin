@@ -1,14 +1,11 @@
 package hw3.hash;
 
-import java.lang.management.CompilationMXBean;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListResourceBundle;
 
 public class OomageTestUtility {
     public static boolean haveNiceHashCodeSpread(List<Oomage> oomages, int M) {
-        /* TODO:
-         * Write a utility function that returns true if the given oomages
+        /* Write a utility function that returns true if the given oomages
          * have hashCodes that would distribute them fairly evenly across
          * M buckets. To do this, convert each oomage's hashcode in the
          * same way as in the visualizer, i.e. (& 0x7FFFFFFF) % M.
@@ -27,8 +24,8 @@ public class OomageTestUtility {
             int bucketNum = (o.hashCode() & 0x7FFFFFFF) % M;
             buckets[bucketNum].add(o);
         }
-        int min = oomages.size()/50;
-        int max = (int) (oomages.size()/2.5);
+        int min = oomages.size() / 50;
+        int max = (int) (oomages.size() / 2.5);
         for (List i:buckets) {
             if (i.size() >= max || i.size() <= min) {
                 return false;

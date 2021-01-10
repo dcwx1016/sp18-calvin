@@ -34,7 +34,7 @@ public class TestComplexOomage {
         assertTrue(OomageTestUtility.haveNiceHashCodeSpread(oomages, 10));
     }
 
-    /* TODO: Create a list of Complex Oomages called deadlyList
+    /* Create a list of Complex Oomages called deadlyList
      * that shows the flaw in the hashCode function.
      */
 
@@ -46,51 +46,11 @@ public class TestComplexOomage {
         for (int i = 0; i < 20; i++) {
             List<Integer> ina = new ArrayList<>();
             for (int j = 0; j < 8; j++) {
-                int x = StdRandom.uniform(250,255);
+                int x = StdRandom.uniform(250, 255);
                 ina.add(x);
             }
             deadlyList.add(new ComplexOomage(ina));
         }
-//        List<Integer> ina = new ArrayList<>();
-//        ina.add(254);
-//        ina.add(254);
-//        ina.add(254);
-//        ina.add(254);
-//        ina.add(254);
-//        ina.add(254);
-//        deadlyList.add(new ComplexOomage(ina));
-//        List<Integer> inb = new ArrayList<>();
-//        inb.add(253);
-//        inb.add(253);
-//        inb.add(253);
-//        inb.add(253);
-//        inb.add(253);
-//        inb.add(253);
-//        deadlyList.add(new ComplexOomage(inb));
-//        List<Integer> inc = new ArrayList<>();
-//        inc.add(252);
-//        inc.add(252);
-//        inc.add(252);
-//        inc.add(252);
-//        inc.add(252);
-//        inc.add(252);
-//        deadlyList.add(new ComplexOomage(inc));
-//        List<Integer> ind = new ArrayList<>();
-//        ind.add(251);
-//        ind.add(251);
-//        ind.add(251);
-//        ind.add(251);
-//        ind.add(251);
-//        ind.add(251);
-//        deadlyList.add(new ComplexOomage(ind));
-//        List<Integer> ine = new ArrayList<>();
-//        ine.add(250);
-//        ine.add(250);
-//        ine.add(250);
-//        ine.add(250);
-//        ine.add(250);
-//        ine.add(250);
-//        deadlyList.add(new ComplexOomage(ine));
         assertTrue(OomageTestUtility.haveNiceHashCodeSpread(deadlyList, 10));
     }
 
