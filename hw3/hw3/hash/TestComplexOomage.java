@@ -1,5 +1,6 @@
 package hw3.hash;
 
+import edu.princeton.cs.introcs.StdRandom;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -36,15 +37,62 @@ public class TestComplexOomage {
     /* TODO: Create a list of Complex Oomages called deadlyList
      * that shows the flaw in the hashCode function.
      */
-    /*
+
     @Test
     public void testWithDeadlyParams() {
         List<Oomage> deadlyList = new ArrayList<>();
 
         // Your code here.
-
+//        for (int i = 0; i < 20; i++) {
+//            List<Integer> ina = new ArrayList<>();
+//            for (int j = 0; j < 8; j++) {
+//                int x = StdRandom.uniform(250,255);
+//                ina.add(x);
+//            }
+//            deadlyList.add(new ComplexOomage(ina));
+//        }
+        List<Integer> ina = new ArrayList<>();
+        ina.add(254);
+        ina.add(254);
+        ina.add(254);
+        ina.add(254);
+        ina.add(254);
+        ina.add(254);
+        deadlyList.add(new ComplexOomage(ina));
+        List<Integer> inb = new ArrayList<>();
+        inb.add(253);
+        inb.add(253);
+        inb.add(253);
+        inb.add(253);
+        inb.add(253);
+        inb.add(253);
+        deadlyList.add(new ComplexOomage(inb));
+        List<Integer> inc = new ArrayList<>();
+        inc.add(252);
+        inc.add(252);
+        inc.add(252);
+        inc.add(252);
+        inc.add(252);
+        inc.add(252);
+        deadlyList.add(new ComplexOomage(inc));
+        List<Integer> ind = new ArrayList<>();
+        ind.add(251);
+        ind.add(251);
+        ind.add(251);
+        ind.add(251);
+        ind.add(251);
+        ind.add(251);
+        deadlyList.add(new ComplexOomage(ind));
+        List<Integer> ine = new ArrayList<>();
+        ine.add(250);
+        ine.add(250);
+        ine.add(250);
+        ine.add(250);
+        ine.add(250);
+        ine.add(250);
+        deadlyList.add(new ComplexOomage(ine));
         assertTrue(OomageTestUtility.haveNiceHashCodeSpread(deadlyList, 10));
-    } */
+    }
 
     /** Calls tests for SimpleOomage. */
     public static void main(String[] args) {

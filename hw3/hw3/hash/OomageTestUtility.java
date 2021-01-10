@@ -1,6 +1,9 @@
 package hw3.hash;
 
+import java.lang.management.CompilationMXBean;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ListResourceBundle;
 
 public class OomageTestUtility {
     public static boolean haveNiceHashCodeSpread(List<Oomage> oomages, int M) {
@@ -12,6 +15,25 @@ public class OomageTestUtility {
          * and ensure that no bucket has fewer than N / 50
          * Oomages and no bucket has more than N / 2.5 Oomages.
          */
-        return false;
+        List<Oomage>[] buckets = new List[M];
+        for (int i = 0; i < M; i++) {
+            buckets[i] = new ArrayList();
+        }
+//        Wrong answer: use index rather than iterable.
+//        for (List i:buckets){
+//            i = new ArrayList();
+//        }
+        for (Oomage o:oomages) {
+            int bucketNum = (o.hashCode() & 0x7FFFFFFF) % M;
+            buckets[bucketNum].add(o);
+        }
+        int min = oomages.size()/50;
+        int max = (int) (oomages.size()/2.5);
+        for (List i:buckets) {
+            if (i.size() >= max || i.size() <= min) {
+                return false;
+            }
+        }
+        return true;
     }
 }
